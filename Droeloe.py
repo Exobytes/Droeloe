@@ -23,12 +23,12 @@ class Droeloe:
             self.Atk()
 
     def Moves(self):
-        doing = str(input("1. Attack, 2. Defend, 3. Run:  "))
-        if doing == "Attack":
+        doing = str.lower(input("1. Attack, 2. Defend, 3. Run:  "))
+        if doing == "attack":
             self.Atk()
-        elif doing == "Defense":
+        elif doing == "defense":
             self.Dfnd()
-        elif doing == "Run":
+        elif doing == "run":
             print("Running away")
             exit
 

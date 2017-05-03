@@ -91,13 +91,10 @@ class Droeloe:
                 print("You dealt", self.playerdamage, "damage")
                 print("Enemy has", self.enemyhealth, "lives left")
                 print('You won, good job')
-<<<<<<< HEAD
                 self.update_stat
                 exit
-=======
                 self.won = True
                 self.Update_stat()
->>>>>>> 28ed43b9e6ddcf806e712d77f0f8ad354d9f01c5
             else:
                 self.turn == False
                 print("--------------------------------------------------------------")

@@ -6,8 +6,6 @@ class Droeloe:
     def __init__(self):
         # Battle
         self.enemyhealth = random.randrange(8, 15)
-        self.enemydamage = random.randrange(1, 6)
-        self.playerdamage = random.randrange(0, 6)
         self.turn = True
         self.won = False
         self.lost = False

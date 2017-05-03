@@ -1,15 +1,17 @@
+import os
 import random
+
 
 class Droeloe:
     def __init__(self):
-        #Battle
+        # Battle
         self.enemyhealth = random.randrange(8, 15)
         self.enemydamage = random.randrange(1, 6)
         self.playerdamage = random.randrange(0, 6)
         self.turn = True
         self.won = False
 
-        #Stats
+        # Stats
         self.currentlevel = 5
         self.player_health = 20
         self.currentprogress = 75
@@ -41,14 +43,14 @@ class Droeloe:
         print("Defensepower add", int(self.defensepower))
         print("Progress:", int(self.currentprogress), "/", int(self.levelup))
         print("--------------------------------------------------------------")
-        self.Turn()
+        self.Moves()
 
     def Start(self):
         print("--------------------------------------------------------------")
         print("Enemy has:", self.enemyhealth, "lives")
         print("You have:", self.player_health, "lives")
         print("--------------------------------------------------------------")
-        self.Turn()
+        self.Moves()
 
     def Turn(self):
         if self.turn == True:
@@ -62,26 +64,31 @@ class Droeloe:
     def Moves(self):
         doing = str.lower(input("1. Attack, 2. Defend, 3. Stats, 4. Run: "))
         if doing == "attack":
+            self.clear()
             self.Atk()
         elif doing == "defend":
+            self.clear()
             self.Dfnd()
         elif doing == "stats":
+            self.clear()
             self.Update_stat()
         elif doing == "run":
-            print("Running away")
-            exit
+            self.clear()
+            self.Run()
+        else:
+            self.clear()
+            print("Error: invalid input")
+            self.Moves()
 
     def Dfnd(self):
-        # print("Defend")
-        #if self.turn == True:
-            if random.randint(0,100) < 36:
-                print("Failed to defend")
-                print("Enemy dealt", self.enemydamage)
-                self.Moves()
-            else:
-                print("Succesfully defended from the enemy!")
-                self.Moves()                
-            
+        # if self.turn == True:
+        if random.randint(0, 100) < 36:
+            print("Failed to defend")
+            print("Enemy dealt", self.enemydamage)
+            self.Moves()
+        else:
+            print("Succesfully defended from the enemy!")
+            self.Moves()
 
     def Atk(self):
         if self.turn == True:
@@ -91,7 +98,7 @@ class Droeloe:
                 print("You dealt", self.playerdamage, "damage")
                 print("Enemy has", self.enemyhealth, "lives left")
                 print('You won, good job')
-                self.update_stat
+                self.Update_stat()
                 exit
                 self.won = True
                 self.Update_stat()
@@ -117,6 +124,14 @@ class Droeloe:
                 self.Moves()
         else:
             self.Start()
+
+    def Run(self):
+        print("Running away")
+        exit()
+
+    def clear(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
 
 Game = Droeloe()
 Game.Start()

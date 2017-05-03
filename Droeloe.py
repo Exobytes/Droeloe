@@ -110,12 +110,12 @@ class Droeloe:
                 self.turn = False
                 self.Atk()
         elif self.turn == False:
+            self.player_health = self.player_health - self.enemydamage
             if self.player_health < 1:
                 print("--------------------------------------------------------------")
                 print("You lost")
                 print("--------------------------------------------------------------")
             else:
-                self.player_health = self.player_health - self.enemydamage
                 print("--------------------------------------------------------------")
                 print("Enemy dealt", self.enemydamage)
                 print("You got", self.player_health, "left")

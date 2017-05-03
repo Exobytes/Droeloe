@@ -46,7 +46,7 @@ class Droeloe:
         doing = str.lower(input("1. Attack, 2. Defend, 3. Stats, 4. Run: "))
         if doing == "attack":
             self.Atk()
-        elif doing == "defense":
+        elif doing == "defend":
             self.Dfnd()
         elif doing == "stats":
             self.Stats()
@@ -55,7 +55,16 @@ class Droeloe:
             exit
 
     def Dfnd(self):
-        print("Defend")
+        # print("Defend")
+        #if self.turn == True:
+            if random.randint(0,100) < 36:
+                print("Failed to defend")
+                print("Enemy dealt", self.enemydamage)
+                self.Moves()
+            else:
+                print("Succesfully defended from the enemy!")
+                self.Moves()                
+            
 
     def Atk(self):
         if self.turn == True:
@@ -64,6 +73,7 @@ class Droeloe:
                 print("You dealt", self.playerdamage, "damage")
                 print("Enemy has", self.enemyhealth, "lives left")
                 print('You won, good job')
+                self.update_stat
                 exit
             else:
                 self.turn == False

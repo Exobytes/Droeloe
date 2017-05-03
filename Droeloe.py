@@ -28,7 +28,7 @@ class Droeloe:
                 self.attackpower = self.attackpower / 100 * 150
                 self.defensepower = self.defensepower / 100 * 150
                 self.levelup = self.levelup / 100 * 120
-                print("You're level up!")
+                print("You leveled up!")
                 self.Stats()
             else:
                 self.Stats()
@@ -43,7 +43,10 @@ class Droeloe:
         print("Defensepower add", int(self.defensepower))
         print("Progress:", int(self.currentprogress), "/", int(self.levelup))
         print("--------------------------------------------------------------")
-        self.Moves()
+        if self.won == False:
+            exit()
+        else:
+            self.Moves()
 
     def Start(self):
         print("--------------------------------------------------------------")
@@ -82,7 +85,7 @@ class Droeloe:
 
     def Dfnd(self):
         # if self.turn == True:
-        if random.randint(0, 100) < 36:
+        if random.randint(0, 100) < 10:
             print("Failed to defend")
             print("Enemy dealt", self.enemydamage)
             self.Moves()
@@ -99,7 +102,6 @@ class Droeloe:
                 print("Enemy has", self.enemyhealth, "lives left")
                 print('You won, good job')
                 self.Update_stat()
-                exit
                 self.won = True
                 self.Update_stat()
             else:
@@ -112,9 +114,11 @@ class Droeloe:
         elif self.turn == False:
             self.player_health = self.player_health - self.enemydamage
             if self.player_health < 1:
+                self.clear()
                 print("--------------------------------------------------------------")
                 print("You lost")
-                print("--------------------------------------------------------------")
+                self.won = False
+                self.Update_stat()
             else:
                 print("--------------------------------------------------------------")
                 print("Enemy dealt", self.enemydamage)

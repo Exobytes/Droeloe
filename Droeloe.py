@@ -10,6 +10,7 @@ class Droeloe:
         self.playerdamage = random.randrange(0, 6)
         self.turn = True
         self.won = False
+        self.lost = False
 
         # Stats
         self.currentlevel = 5
@@ -32,8 +33,11 @@ class Droeloe:
                 self.Stats()
             else:
                 self.Stats()
-        else:
+        elif self.lost == True:
             self.Stats()
+        else:
+            self.lost == False
+            self.Stats
 
     def Stats(self):
         print("--------------------------------------------------------------")
@@ -43,7 +47,7 @@ class Droeloe:
         print("Defensepower add", int(self.defensepower))
         print("Progress:", int(self.currentprogress), "/", int(self.levelup))
         print("--------------------------------------------------------------")
-        if self.won == False:
+        if self.lost == True:
             exit()
         else:
             self.Moves()
@@ -103,6 +107,7 @@ class Droeloe:
                 print("You dealt", self.playerdamage, "damage")
                 print("Enemy has", self.enemyhealth, "lives left")
                 print('You won, good job')
+                self.enemyhealth = random.randrange(8, 15)
                 self.Update_stat()
                 self.won = True
                 self.Update_stat()
@@ -120,6 +125,7 @@ class Droeloe:
                 print("--------------------------------------------------------------")
                 print("You lost")
                 self.won = False
+                self.lost = True
                 self.Update_stat()
             else:
                 print("--------------------------------------------------------------")

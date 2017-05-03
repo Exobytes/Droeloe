@@ -91,6 +91,8 @@ class Droeloe:
             self.Moves()
 
     def Atk(self):
+        self.enemydamage = random.randrange(1, 6)
+        self.playerdamage = random.randrange(0, 6)
         if self.turn == True:
             self.enemyhealth = self.enemyhealth - self.playerdamage
             if self.enemyhealth < 1:

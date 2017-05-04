@@ -1,1 +1,6 @@
-currentlevel=6player_health=10current_progress=0levelup=120.0attackpower=6.0defensepower=6.0
+currentlevel=6
+player_health=12
+current_progress=0
+levelup=120.0
+attackpower=6.0
+defensepower=6.0

@@ -31,16 +31,16 @@ class Droeloe:
         savefile = open('save.txt')
         savefile.write("currentlevel=%s" % (self.currentlevel))
         savefile.write("player_health=%s" % (self.player_health))
-        savefile.write("current_progress=%s" % (self.currentprogress))
+        savefile.write("current_progress=%s" % (self.current_progress))
         savefile.write("levelup=%s" % (self.levelup))
         savefile.write("attackpower=%s" % (self.attackpower))
         savefile.write("defensepower=%s" % (self.defensepower))
 
     def Update_stat(self):
         if self.won == True:
-            self.currentprogress = self.currentprogress + 25
-            if self.currentprogress >= self.levelup:
-                self.currentprogress = self.currentprogress - self.levelup
+            self.current_progress = self.current_progress + 25
+            if self.current_progress >= self.levelup:
+                self.current_progress = self.current_progress - self.levelup
                 self.currentlevel += 1
                 self.attackpower = self.attackpower / 100 * 150
                 self.defensepower = self.defensepower / 100 * 150
@@ -61,7 +61,7 @@ class Droeloe:
         print("Level:", int(self.currentlevel))
         print("Attackpower add:", int(self.attackpower))
         print("Defensepower add", int(self.defensepower))
-        print("Progress:", int(self.currentprogress), "/", int(self.levelup))
+        print("Progress:", int(self.current_progress), "/", int(self.levelup))
         print("--------------------------------------------------------------")
         if self.lost == True:
             exit()

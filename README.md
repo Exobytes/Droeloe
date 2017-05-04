@@ -1,2 +1,2 @@
 # Droele
-Attack simulator
+Text based Battle Simulator

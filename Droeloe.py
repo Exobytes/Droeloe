@@ -28,13 +28,14 @@ class Droeloe:
         # self.defensepower = 4
 
     def Save_Progress(self):
-        savefile = open('save.txt')
+        savefile = open('save.txt', 'w')
         savefile.write("currentlevel=%s" % (self.currentlevel))
         savefile.write("player_health=%s" % (self.player_health))
         savefile.write("current_progress=%s" % (self.current_progress))
         savefile.write("levelup=%s" % (self.levelup))
         savefile.write("attackpower=%s" % (self.attackpower))
         savefile.write("defensepower=%s" % (self.defensepower))
+        savefile.close()
 
     def Update_stat(self):
         if self.won == True:
@@ -46,6 +47,7 @@ class Droeloe:
                 self.defensepower = self.defensepower / 100 * 150
                 self.levelup = self.levelup / 100 * 120
                 print("You leveled up!")
+                self.won == False
                 self.Save_Progress()
                 self.Stats()
             else:
@@ -164,3 +166,4 @@ class Droeloe:
 
 Game = Droeloe()
 Game.Start()
+

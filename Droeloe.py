@@ -46,6 +46,7 @@ class Droeloe:
                 self.defensepower = self.defensepower / 100 * 150
                 self.levelup = self.levelup / 100 * 120
                 print("You leveled up!")
+                self.Save_Progress()
                 self.Stats()
             else:
                 self.Stats()
@@ -53,7 +54,7 @@ class Droeloe:
             self.Stats()
         else:
             self.lost == False
-            self.Stats
+            self.Stats()
 
     def Stats(self):
         print("--------------------------------------------------------------")
@@ -125,7 +126,6 @@ class Droeloe:
                 print("Enemy has", self.enemyhealth, "lives left")
                 print('You won, good job')
                 self.enemyhealth = random.randrange(8, 15)
-                self.Update_stat()
                 self.won = True
                 self.Update_stat()
             else:

@@ -10,8 +10,6 @@ class Droeloe:
         self.turn = True
         self.won = False
         self.lost = False
-        self.enemydamage = random.randrange(1, 6)
-        self.playerdamage = random.randrange(0, 6)
 
         # Stats
         if os.path.isfile('save.txt'):
@@ -126,6 +124,8 @@ class Droeloe:
             self.Moves()
 
     def Atk(self):
+        self.enemydamage = random.randrange(1, 6)
+        self.playerdamage = random.randrange(0, 6)
         if self.turn == True:
             self.enemyhealth = self.enemyhealth - self.playerdamage
             if self.enemyhealth < 1:

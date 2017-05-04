@@ -10,6 +10,8 @@ class Droeloe:
         self.turn = True
         self.won = False
         self.lost = False
+        self.enemydamage = random.randrange(1, 6)
+        self.playerdamage = random.randrange(0, 6)
 
         # Stats
         if os.path.isfile('save.txt'):
@@ -30,13 +32,6 @@ class Droeloe:
             savefile.write("attackpower=1\n")
             savefile.write("defensepower=1\n")
             savefile.close()
-
-        # self.currentlevel = 5
-        # self.player_health = 20
-        # self.currentprogress = 75
-        # self.levelup = 100
-        # self.attackpower = 4
-        # self.defensepower = 4
 
     def Save_Progress(self):
         savefile = open('save.txt', 'w')
@@ -85,6 +80,7 @@ class Droeloe:
             self.Moves()
 
     def Start(self):
+        self.__init__()
         print("--------------------------------------------------------------")
         print("Enemy has:", self.enemyhealth, "lives")
         print("You have:", self.player_health, "lives")
@@ -121,7 +117,6 @@ class Droeloe:
             self.Moves()
 
     def Dfnd(self):
-        # if self.turn == True:
         if random.randint(0, 100) < 10:
             print("Failed to defend")
             print("Enemy dealt", self.enemydamage)
@@ -131,8 +126,6 @@ class Droeloe:
             self.Moves()
 
     def Atk(self):
-        self.enemydamage = random.randrange(1, 6)
-        self.playerdamage = random.randrange(0, 6)
         if self.turn == True:
             self.enemyhealth = self.enemyhealth - self.playerdamage
             if self.enemyhealth < 1:

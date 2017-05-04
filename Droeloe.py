@@ -1,6 +1,6 @@
 import os
 import random
-
+import configparser
 
 class Droeloe:
     def __init__(self):
@@ -11,12 +11,30 @@ class Droeloe:
         self.lost = False
 
         # Stats
-        self.currentlevel = 5
-        self.player_health = 20
-        self.currentprogress = 75
-        self.levelup = 100
-        self.attackpower = 4
-        self.defensepower = 4
+        savefile = open('save.txt')
+        self.currentlevel = int(savefile.readline().split('=')[1])
+        self.player_health = int(savefile.readline().split('=')[1])
+        self.current_progress = int(savefile.readline().split('=')[1])
+        self.levelup = int(savefile.readline().split('=')[1])
+        self.attackpower = int(savefile.readline().split('=')[1])
+        self.defensepower = int(savefile.readline().split('=')[1])
+        savefile.close()
+
+        # self.currentlevel = 5
+        # self.player_health = 20
+        # self.currentprogress = 75
+        # self.levelup = 100
+        # self.attackpower = 4
+        # self.defensepower = 4
+
+    def Save_Progress(self):
+        savefile = open('save.txt')
+        savefile.write("currentlevel=%s" % (self.currentlevel))
+        savefile.write("player_health=%s" % (self.player_health))
+        savefile.write("current_progress=%s" % (self.currentprogress))
+        savefile.write("levelup=%s" % (self.levelup))
+        savefile.write("attackpower=%s" % (self.attackpower))
+        savefile.write("defensepower=%s" % (self.defensepower))
 
     def Update_stat(self):
         if self.won == True:
@@ -51,6 +69,7 @@ class Droeloe:
             self.Moves()
 
     def Start(self):
+        print(self.currentlevel)
         print("--------------------------------------------------------------")
         print("Enemy has:", self.enemyhealth, "lives")
         print("You have:", self.player_health, "lives")
@@ -141,6 +160,7 @@ class Droeloe:
 
     def clear(self):
         os.system('cls' if os.name == 'nt' else 'clear')
+
 
 Game = Droeloe()
 Game.Start()

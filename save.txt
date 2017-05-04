@@ -1,0 +1,6 @@
+currentlevel=5
+player_health=20
+currentprogress=75
+levelup=100
+attackpower=4
+defensepower=4

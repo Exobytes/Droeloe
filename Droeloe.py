@@ -2,6 +2,7 @@ import os
 import random
 import configparser
 
+
 class Droeloe:
     def __init__(self):
         # Battle
@@ -11,21 +12,24 @@ class Droeloe:
         self.lost = False
 
         # Stats
-        savefile = open('save.txt')
-        self.currentlevel = int(savefile.readline().split('=')[1])
-        self.player_health = int(savefile.readline().split('=')[1])
-        self.current_progress = int(savefile.readline().split('=')[1])
-        self.levelup = int(savefile.readline().split('=')[1])
-        self.attackpower = int(savefile.readline().split('=')[1])
-        self.defensepower = int(savefile.readline().split('=')[1])
-        savefile.close()
-
-        # self.currentlevel = 5
-        # self.player_health = 20
-        # self.currentprogress = 75
-        # self.levelup = 100
-        # self.attackpower = 4
-        # self.defensepower = 4
+        if os.path.isfile('save.txt'):
+            savefile = open('save.txt')
+            self.currentlevel = int(savefile.readline().split('=')[1])
+            self.player_health = int(savefile.readline().split('=')[1])
+            self.current_progress = int(savefile.readline().split('=')[1])
+            self.levelup = int(savefile.readline().split('=')[1])
+            self.attackpower = int(savefile.readline().split('=')[1])
+            self.defensepower = int(savefile.readline().split('=')[1])
+            savefile.close()
+        else:
+            savefile = open('save.txt', 'w+')
+            savefile.write("currentlevel=1\n")
+            savefile.write("player_health=10\n")
+            savefile.write("current_progress=0\n")
+            savefile.write("levelup=25\n")
+            savefile.write("attackpower=1\n")
+            savefile.write("defensepower=1\n")
+            savefile.close()
 
         # Inventory
         self.inv_slots = 0
@@ -33,12 +37,12 @@ class Droeloe:
 
     def Save_Progress(self):
         savefile = open('save.txt', 'w')
-        savefile.write("currentlevel=%s\n" % (self.currentlevel))
-        savefile.write("player_health=%s\n" % (self.player_health))
-        savefile.write("current_progress=%s\n" % (self.current_progress))
-        savefile.write("levelup=%s\n" % (self.levelup))
-        savefile.write("attackpower=%s\n" % (self.attackpower))
-        savefile.write("defensepower=%s\n" % (self.defensepower))
+        savefile.write("currentlevel=%s\n" % int(self.currentlevel))
+        savefile.write("player_health=%s\n" % int(self.player_health))
+        savefile.write("current_progress=%s\n" % int(self.current_progress))
+        savefile.write("levelup=%s\n" % int(self.levelup))
+        savefile.write("attackpower=%s\n" % int(self.attackpower))
+        savefile.write("defensepower=%s\n" % int(self.defensepower))
         savefile.close()
 
     def Update_stat(self):
@@ -47,9 +51,10 @@ class Droeloe:
             if self.current_progress >= self.levelup:
                 self.current_progress = self.current_progress - self.levelup
                 self.currentlevel += 1
+                self.player_health = self.currentlevel * 10 / 100 * 120
                 self.attackpower = self.attackpower / 100 * 150
                 self.defensepower = self.defensepower / 100 * 150
-                self.levelup = self.levelup / 100 * 120
+                self.levelup = self.currentlevel * 20 / 100 * 120
                 print("You leveled up!")
                 self.Inventory()
                 self.won == False
@@ -67,6 +72,7 @@ class Droeloe:
         print("--------------------------------------------------------------")
         print(" - Stats -")
         print("Level:", int(self.currentlevel))
+        print("Health:", int(self.player_health))
         print("Attackpower add:", int(self.attackpower))
         print("Defensepower add", int(self.defensepower))
         print("Progress:", int(self.current_progress), "/", int(self.levelup))
@@ -77,7 +83,7 @@ class Droeloe:
             self.Moves()
 
     def Start(self):
-        print(self.currentlevel)
+        self.__init__()
         print("--------------------------------------------------------------")
         print("Enemy has:", self.enemyhealth, "lives")
         print("You have:", self.player_health, "lives")
@@ -117,7 +123,6 @@ class Droeloe:
             self.Moves()
 
     def Dfnd(self):
-        # if self.turn == True:
         if random.randint(0, 100) < 10:
             print("Failed to defend")
             print("Enemy dealt", self.enemydamage)
@@ -154,6 +159,7 @@ class Droeloe:
                 print("You lost")
                 self.won = False
                 self.lost = True
+                self.Dead()
                 self.Update_stat()
             else:
                 print("--------------------------------------------------------------")
@@ -164,6 +170,20 @@ class Droeloe:
                 self.Moves()
         else:
             self.Start()
+
+    def Dead(self):
+        if self.won == False:
+            calc = self.currentlevel * 20 / 100 * 120
+            savefile = open('save.txt', 'w+')
+            savefile.write("currentlevel=%s\n" % int(self.currentlevel))
+            savefile.writelines("player_health=%s\n" % int(calc))
+            savefile.write("current_progress=0\n")
+            savefile.write("levelup=%s\n" % int(self.levelup))
+            savefile.write("attackpower=%s\n" % int(self.attackpower))
+            savefile.write("defensepower=%s\n" % int(self.defensepower))
+            savefile.close()
+        else:
+            exit()
 
     def Run(self):
         print("Running away")

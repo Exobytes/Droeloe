@@ -35,12 +35,6 @@ class Droeloe:
         self.inv_slots = 0
         self.current_items = 0
 
-        tree = ET.parse('items.xml')
-        root = tree.getroot()
-        
-        Active_item = root.find("wep1")
-        self.ItemSelect = Active_item
-
     def Save_Progress(self):
         savefile = open('save.txt', 'w')
         savefile.write("currentlevel=%s\n" % int(self.currentlevel))
@@ -200,6 +194,12 @@ class Droeloe:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def Inventory(self):
+        tree = ET.parse('items.xml')
+        root = tree.getroot()
+        
+        Active = root.find("wep1")
+        print(Active)
+
         slots = self.currentlevel % 5
         if slots == 0:
             self.inv_slots += 1

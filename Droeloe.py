@@ -27,6 +27,10 @@ class Droeloe:
         # self.attackpower = 4
         # self.defensepower = 4
 
+        # Inventory
+        self.inv_slots = 0
+        self.current_items = None
+
     def Save_Progress(self):
         savefile = open('save.txt', 'w')
         savefile.write("currentlevel=%s\n" % (self.currentlevel))
@@ -47,6 +51,7 @@ class Droeloe:
                 self.defensepower = self.defensepower / 100 * 150
                 self.levelup = self.levelup / 100 * 120
                 print("You leveled up!")
+                self.Inventory()
                 self.won == False
                 self.Save_Progress()
                 self.Stats()
@@ -89,7 +94,7 @@ class Droeloe:
             self.Atk()
 
     def Moves(self):
-        doing = str.lower(input("1. Attack, 2. Defend, 3. Stats, 4. Run: "))
+        doing = str.lower(input("1. Attack, 2. Defend, 3. Stats, 4. Inventory, 5. Run: "))
         if doing == "attack":
             self.clear()
             self.Atk()
@@ -99,6 +104,9 @@ class Droeloe:
         elif doing == "stats":
             self.clear()
             self.Update_stat()
+        elif doing == "inventory":
+            self.clear()
+            self.Inventory()
         elif doing == "run":
             self.clear()
             self.Update_stat
@@ -164,6 +172,17 @@ class Droeloe:
     def clear(self):
         os.system('cls' if os.name == 'nt' else 'clear')
 
+    def Inventory(self):
+        slots = self.currentlevel % 5
+        if slots == 0:
+            self.inv_slots += 1
+            print("You unlocked one slot")
+        else:
+            print("--------------------------------------------------------------")
+            print("Inventory:")
+            print("Total item slots available:", self.inv_slots, "- Slots left:", (self.inv_slots - self.current_items))
+            print("--------------------------------------------------------------")
+            self.Moves()
 
 Game = Droeloe()
 Game.Start()

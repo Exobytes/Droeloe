@@ -1,7 +1,7 @@
 import os
 import random
 import configparser
-
+import xml.etree.ElementTree as ET
 
 class Droeloe:
     def __init__(self):
@@ -33,7 +33,13 @@ class Droeloe:
 
         # Inventory
         self.inv_slots = 0
-        self.current_items = None
+        self.current_items = 0
+
+        tree = ET.parse('items.xml')
+        root = tree.getroot()
+        
+        Active_item = root.find("wep1")
+        self.ItemSelect = Active_item
 
     def Save_Progress(self):
         savefile = open('save.txt', 'w')
@@ -134,6 +140,7 @@ class Droeloe:
     def Atk(self):
         self.enemydamage = random.randrange(1, 6)
         self.playerdamage = random.randrange(0, 6)
+        self.playerdamage = self.playerdamage + self.attackpower
         if self.turn == True:
             self.enemyhealth = self.enemyhealth - self.playerdamage
             if self.enemyhealth < 1:

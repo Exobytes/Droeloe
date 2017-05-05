@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<data>
+    <weapons>
+        <wep id='wep1' name="Sword of ultimate doom!">
+            <damage>1000</damage>
+            <durb>1000</durb>
+        </wep>
+    </weapons>
+</data>
